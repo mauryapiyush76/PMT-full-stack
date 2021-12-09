@@ -24,10 +24,10 @@ public class Project {
 	@NotBlank(message = "The project name can not be blank")
 	private String projectName;
 	@NotBlank(message = "The project identifier can not be blank")
-	@Size(min = 4, max = 5)
+	@Size(min = 4, max = 5, message = "Please use 4 to 5 characters")
 	@Column(updatable = false, unique = true)
 	private String projectIdentifier;
-	@NotBlank(message = "The project name can not be blank")
+	@NotBlank(message = "The project description can not be blank")
 	private String description;
 	@JsonFormat(pattern = "dd-mm-yyyy")
 	private Date start_date;
