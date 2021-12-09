@@ -18,25 +18,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.piyush.pmt.domain.Project;
 import io.piyush.pmt.services.ProjectService;
+import io.piyush.pmt.services.ValidationMapService;
 
 @RestController
 @RequestMapping("/api/project")
 public class ProjectController {
 
-		@Autowired
-		private ProjectService projectService;
-		
-		@PostMapping("")
-		public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result){
-			if(result.hasErrors()) {
-				Map<String, String> errorMap = new HashMap<String, String>();
-				
-				for(FieldError error: result.getFieldErrors()) {
-					errorMap.put(error.getField(), error.getDefaultMessage());
-				}
-				return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
-			}
-			Project project2 = projectService.saveOrUpdateProject(project);
-			return new ResponseEntity<Project>(project2, HttpStatus.CREATED);
-		}
+	@Autowired
+	private ProjectService projectService;
+
+	@Autowired
+	private ValidationMapService validationMapService;
+
+	@PostMapping("")
+	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
+		ResponseEntity<?> errorMap = validationMapService.getValidationErrorsMap(result);
+		if (errorMap != null)
+			return errorMap;
+		Project project2 = projectService.saveOrUpdateProject(project);
+		return new ResponseEntity<Project>(project2, HttpStatus.CREATED);
+	}
 }
