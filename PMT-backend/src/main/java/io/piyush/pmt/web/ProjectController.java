@@ -47,4 +47,9 @@ public class ProjectController {
 		Project project = projectService.getByProjectId(projectId);
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
+	
+	@GetMapping("/all")
+	public Iterable<Project> getAllProjects(){
+		return projectService.getAllProjects();
+	}
 }
