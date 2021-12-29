@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import io.piyush.pmt.domain.Project;
 
 @Repository
-public interface ProjectRepository extends CrudRepository<Project, Long>{
+public interface ProjectRepository extends CrudRepository<Project, Long> {
 
-	
+	public Project findByProjectIdentifier(String projectIdentifier);
 }

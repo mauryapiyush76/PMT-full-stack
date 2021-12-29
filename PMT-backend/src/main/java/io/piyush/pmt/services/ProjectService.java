@@ -12,7 +12,7 @@ public class ProjectService {
 
 	@Autowired
 	private ProjectRepository projectRepository;
-	
+
 	public Project saveOrUpdateProject(Project project) {
 		try {
 			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
@@ -20,5 +20,13 @@ public class ProjectService {
 		} catch (Exception e) {
 			throw new ProjectIdException("PROJECT ID '" + project.getProjectIdentifier() + "' already exists");
 		}
+	}
+
+	public Project getByProjectId(String projectId) {
+		Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+		if (project == null) {
+			throw new ProjectIdException( projectId + " does not exist");
+		}
+		return project;
 	}
 }
