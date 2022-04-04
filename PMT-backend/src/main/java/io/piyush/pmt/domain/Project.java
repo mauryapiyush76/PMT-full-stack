@@ -13,11 +13,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.istack.NotNull;
 
 @Entity
 public class Project {
 
+	/* The id acts as the primary key giving us consecutive 
+	 * numbers on every new entry 
+	 * */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
